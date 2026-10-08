@@ -24,7 +24,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.shaharyar = import ./home.nix;
+            home-manager.users.shaharyar = import ./home/home.nix;
           }
         ];
       };
