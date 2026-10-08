@@ -13,20 +13,4 @@
    sddm-astronaut
   ];
 
-home.packages = with pkgs; [
-  bat
-  eza
-  fd
-  ripgrep
-  fzf
-  lazygit
-  yazi
-  tree
-  jq
-  curl
-  wget
-  unzip
-  zip
-  rsync
-];
 }
