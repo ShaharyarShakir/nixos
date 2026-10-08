@@ -45,8 +45,8 @@
      "docker"
     ];
   };
-  
-  shell = pkgs.zsh;
+    users.users.shaharyar.shell = pkgs.zsh;
+
   programs.zsh.enable = true;
   
   # Allow unfree packages
