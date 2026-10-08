@@ -21,4 +21,17 @@
       ".." = "cd ..";
     };
   };
+
+  programs.git = {
+  enable = true;
+
+  userName = "Shaharyar Shakir";
+  userEmail = "shakirshaharyar125@gmail.com";
+
+  extraConfig = {
+    init.defaultBranch = "main";
+    pull.rebase = false;
+    push.autoSetupRemote = true;
+  };
+};
 }
