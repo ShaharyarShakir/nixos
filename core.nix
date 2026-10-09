@@ -8,6 +8,14 @@
   # Host
   networking.hostName = "nixos";
 
+  # Local Omni lab names
+  networking.hosts = {
+    "10.221.146.1" = [
+      "omni.internal"
+      "auth.internal"
+    ];
+  };
+
   # Networking
   networking.networkmanager.enable = true;
   networking.nftables.enable = true;
@@ -53,8 +61,10 @@
   "flakes"
   ];
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
+  services.upower.enable = true;
+  nixpkgs.config.allowUnfree = true;
+  networking.firewall.enable = false;
   # NixOS version this configuration was originally created against.
   system.stateVersion = "26.05";
 }

@@ -10,7 +10,8 @@
     git
     rofi
     incus-ui-canonical
-   sddm-astronaut
+    sddm-astronaut
+    talosctl
   ];
 
 }
