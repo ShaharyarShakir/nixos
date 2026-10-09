@@ -3,8 +3,7 @@
 {
   programs.zsh = {
     enable = true;
-    enableZshIntegration = true;
-
+    programs.zsh.enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
@@ -59,7 +58,7 @@ initContent = ''
   bindkey '^n' history-search-forward
 
   zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-  zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+  zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"  
   zstyle ':completion:*' menu no
 
   zstyle ':fzf-tab:completion:cd:*' fzf-preview 'ls --color $realpath'
