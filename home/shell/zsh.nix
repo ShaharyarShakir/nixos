@@ -8,17 +8,8 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
- plugins = [
-    {
-      name = "zsh-completions";
-      package = pkgs.zsh-completions;
-    }
-
-    {
-      name = "fzf-tab";
-      package = pkgs.zsh-fzf-tab;
-    }
-  ];
+ plugins = [];
+  
 
     history = {
       size = 10000;
