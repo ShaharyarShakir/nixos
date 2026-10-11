@@ -70,7 +70,9 @@
   "nix-command"
   "flakes"
   ];
-  
+hardware.bluetooth.enable = true;
+hardware.bluetooth.powerOnBoot = true;
+services.blueman.enable = true;  
    # Allow unfree packages
 
   services.upower.enable = true;
