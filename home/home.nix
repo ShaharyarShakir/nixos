@@ -3,7 +3,7 @@
 {
   imports = [
     ./shell/zsh.nix
-   ./editor/emacs.nix
+    ./editor/emacs.nix
   ];
 
   home.username = "shaharyar";
@@ -12,36 +12,36 @@
 
   programs.home-manager.enable = true;
 
+  programs.git = {
+    enable = true;
 
-   programs.git = {
-  enable = true;
+    settings = {
+      user = {
+        name = "Shaharyar Shakir";
+        email = "shakirshaharyar125@gmail.com";
+      };
 
-  userName = "Shaharyar Shakir";
-  userEmail = "shakirshaharyar125@gmail.com";
-
-  extraConfig = {
-    init.defaultBranch = "main";
-    pull.rebase = false;
-    push.autoSetupRemote = true;
+      init.defaultBranch = "main";
+      pull.rebase = false;
+      push.autoSetupRemote = true;
+    };
   };
-};
 
   home.packages = with pkgs; [
-  bat
-  eza
-  fd
-  ripgrep
-  fzf
-  lazygit
-  yazi
-  tree
-  jq
-  curl
-  wget
-  unzip
-  zip
-  rsync
-  zoxide
-];
-
+    bat
+    eza
+    fd
+    ripgrep
+    fzf
+    lazygit
+    yazi
+    tree
+    jq
+    curl
+    wget
+    unzip
+    zip
+    rsync
+    zoxide
+  ];
 }
