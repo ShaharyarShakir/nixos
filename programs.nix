@@ -16,6 +16,9 @@
     vscode
     zed-editor
     godot
+   google-chrome
+   obs-studio
+   vlc
   ];
 
 }
