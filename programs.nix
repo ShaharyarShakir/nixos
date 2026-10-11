@@ -12,6 +12,9 @@
     incus-ui-canonical
     sddm-astronaut
     talosctl
+    blender
+    vscode
+    zed-editor
   ];
 
 }

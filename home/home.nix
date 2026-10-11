@@ -3,6 +3,7 @@
 {
   imports = [
     ./shell/zsh.nix
+   ./editor/emacs.nix
   ];
 
   home.username = "shaharyar";
