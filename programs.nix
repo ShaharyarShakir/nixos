@@ -15,6 +15,7 @@
     blender
     vscode
     zed-editor
+    godot
   ];
 
 }

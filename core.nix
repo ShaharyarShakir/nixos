@@ -54,17 +54,23 @@
     ];
   };
     users.users.shaharyar.shell = pkgs.zsh;
-
+   services.udisks2.enable = true;
    programs.zsh.enable = true;
+   
+   # nix experiment
    nix.settings.experimental-features = [
   "nix-command"
   "flakes"
   ];
-  # Allow unfree packages
+  
+   # Allow unfree packages
 
   services.upower.enable = true;
   nixpkgs.config.allowUnfree = true;
   networking.firewall.enable = false;
+  
+
+
   # NixOS version this configuration was originally created against.
   system.stateVersion = "26.05";
 }
