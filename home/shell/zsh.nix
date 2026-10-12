@@ -42,6 +42,10 @@ in
   };
 
   programs.starship.enable = true; # replaces eval "$(starship init zsh)"
+  programs.starship = {
+    enable = true;
+    settings = builtins.fromTOML (builtins.readFile ./starship_zsh.toml);
+  };
 
   programs.direnv = {
     enable = true;
@@ -61,7 +65,6 @@ in
     VISUAL = "nvim";
     YAZI_EDITOR = "nvim";
 
-    STARSHIP_CONFIG = "${home}/.config/starship_zsh.toml";
     _ZO_ECHO = "1";
 
     BUILDKIT_HOST = "unix:///run/user/1000/buildkit/buildkitd.sock";

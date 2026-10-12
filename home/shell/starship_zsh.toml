@@ -1,0 +1,87 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+
+format = "$conda$python $character$directory $git_branch "
+
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+
+[username]
+show_always = false
+style_user = "bold cyan"
+format = "[$user]($style)"
+
+[directory]
+truncate_to_repo = true
+style = "bold blue"
+format = "[$path]($style)"
+
+[git_branch]
+symbol = ""  
+style = "bold red"
+#format = "([$branch]($style))"  # Git status inside parentheses
+format = '\([$branch]($style)\)'
+
+[git_status]
+style = "bold red"
+format = "[ *]($style)"
+conflicted = "[ *]($style)"
+untracked = "[ *]($style)"
+modified = "[ *]($style)"
+staged = "[ *]($style)"
+renamed = "[ *]($style)"
+deleted = "[ *]($style)"
+up_to_date = ""
+
+[python]
+format = '([$virtualenv]($style)) '
+style = "bold purple"
+
+[cmd_duration]
+min_time = 5000
+format = 'underwent [$duration](bold yellow)'
+
+[aws]
+disabled = true
+
+[azure]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[golang]
+disabled = true
+
+[kubernetes]
+disabled = false
+
+[shell]
+disabled = false
+zsh_indicator = ""
+
+[nix_shell]
+disabled = false
+style = "bold purple"
+impure_msg = "devbox"
+format = '\([$state]($style)\)'
+
+[conda]
+symbol = ""
+format = "([($environment)](dimmed green) )"
+truncation_length = 1
+ignore_base = false
+
+[sudo]
+disabled = false
+
+[nodejs]
+disabled = true
+
+[package]
+disabled = true
