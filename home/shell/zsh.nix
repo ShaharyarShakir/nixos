@@ -41,7 +41,6 @@ in
     options = [ "--cmd" "cd" ]; # replaces eval "$(zoxide init --cmd cd zsh)"
   };
 
-  programs.starship.enable = true; # replaces eval "$(starship init zsh)"
   programs.starship = {
     enable = true;
     settings = builtins.fromTOML (builtins.readFile ./starship_zsh.toml);
