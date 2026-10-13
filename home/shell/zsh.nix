@@ -233,7 +233,7 @@ in
         if command -v task >/dev/null 2>&1; then
           eval "$(task --completion zsh)"
         fi
-
+        eval "$(devenv hook zsh)"
         # Devbox completion
         if command -v devbox >/dev/null 2>&1; then
           eval "$(devbox completion zsh)"
