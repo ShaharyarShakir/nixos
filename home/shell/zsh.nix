@@ -3,7 +3,7 @@
 let
   home = config.home.homeDirectory;
 
-  # Logo lives in the store so we don't need a heredoc inside the Nix string
+  
   logo = pkgs.writeText "devcraft-logo.txt" ''
     ██████╗ ███████╗██╗   ██╗ ██████╗██████╗  █████╗ ███████╗████████╗
     ██╔══██╗██╔════╝██║   ██║██╔════╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
@@ -14,9 +14,7 @@ let
   '';
 in
 {
-  # ---------------------------------------------------------------------------
-  # Packages the old .zshrc assumed were installed
-  # ---------------------------------------------------------------------------
+
   home.packages = with pkgs; [
     eza
     fastfetch
@@ -76,16 +74,12 @@ in
   };
 
   home.sessionPath = [
-    "${home}/.local/bin"
-    "${home}/.rvm/bin"
-    "${home}/.rd/bin" # Rancher Desktop
-    "${home}/.cache/.bun/bin"
-    "${home}/.local/share/solana/install/active_release/bin"
+    
 
     # Android SDK
-    "${home}/Android/platform-tools"
-    "${home}/Android/emulator"
-    "${home}/Android/cmdline-tools/latest/bin"
+    # "${home}/Android/platform-tools"
+    # "${home}/Android/emulator"
+    # "${home}/Android/cmdline-tools/latest/bin"
 
     # Puro (Flutter)
     "${home}/.puro/bin"

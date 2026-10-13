@@ -16,10 +16,11 @@
     vscode
     zed-editor
     godot
-   google-chrome
-   obs-studio
-   vlc
-   devenv
+    google-chrome
+    obs-studio
+    vlc
+    devenv
+    neovim
   ];
 
 }
