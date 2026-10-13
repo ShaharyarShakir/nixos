@@ -19,6 +19,7 @@
    google-chrome
    obs-studio
    vlc
+   devenv
   ];
 
 }
