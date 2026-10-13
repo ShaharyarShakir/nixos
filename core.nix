@@ -66,18 +66,26 @@
    programs.zsh.enable = true;
    
    # nix experiment
-   nix.settings.experimental-features = [
-  "nix-command"
-  "flakes"
+nix.settings = {
+  experimental-features = [
+    "nix-command"
+    "flakes"
   ];
-hardware.bluetooth.enable = true;
-hardware.bluetooth.powerOnBoot = true;
-services.blueman.enable = true;  
-services.pipewire = {
+
+  trusted-users = [
+    "root"
+    "shaharyar"
+  ];
+};
+
+ hardware.bluetooth.enable = true;
+ hardware.bluetooth.powerOnBoot = true;
+ services.blueman.enable = true;  
+ services.pipewire = {
   enable = true;
   pulse.enable = true;
   wireplumber.enable = true;
-};
+  };
    # Allow unfree packages
 
   services.upower.enable = true;
