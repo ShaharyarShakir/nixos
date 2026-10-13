@@ -74,14 +74,7 @@ in
   };
 
   home.sessionPath = [
-    
-
-    # Android SDK
-    # "${home}/Android/platform-tools"
-    # "${home}/Android/emulator"
-    # "${home}/Android/cmdline-tools/latest/bin"
-
-    # Puro (Flutter)
+     # Puro (Flutter)
     "${home}/.puro/bin"
     "${home}/.puro/shared/pub_cache/bin"
     "${home}/.puro/envs/default/flutter/bin"
