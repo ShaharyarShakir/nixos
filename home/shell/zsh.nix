@@ -68,8 +68,6 @@ in
 
     BUILDKIT_HOST = "unix:///run/user/1000/buildkit/buildkitd.sock";
 
-    ANDROID_HOME = "${home}/Android";
-    ANDROID_SDK_ROOT = "${home}/Android";
 
     PURO_ROOT = "${home}/.puro";
 
@@ -229,10 +227,6 @@ in
         zstyle ':fzf-tab:completion:cd:*' fzf-preview 'ls --color $realpath'
         zstyle ':fzf-tab:completion:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-        # Taskfile completion
-        if command -v task >/dev/null 2>&1; then
-          eval "$(task --completion zsh)"
-        fi
         eval "$(devenv hook zsh)"
         # Devbox completion
         if command -v devbox >/dev/null 2>&1; then
@@ -247,15 +241,6 @@ in
         # bun completions
         [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-        # fnm
-        if command -v fnm >/dev/null 2>&1; then
-          eval "$(fnm env --use-on-cd)"
-        fi
-
-        # JAVA_HOME via mise
-        if command -v mise >/dev/null 2>&1; then
-          export JAVA_HOME="$(mise where java 2>/dev/null)"
-        fi
 
         # ssh-agent socket (needs XDG_RUNTIME_DIR, so set at shell start)
         export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
@@ -269,22 +254,13 @@ in
           eval "$(command wt config shell init zsh)"
         fi
 
-        # conda / micromamba (only if present; these don't come from Nix)
-        if [[ -x "$HOME/miniconda3/bin/conda" ]]; then
-          eval "$("$HOME/miniconda3/bin/conda" shell.zsh hook 2>/dev/null)"
-        fi
-        export MAMBA_ROOT_PREFIX="$HOME/.local/share/mamba"
-        export MAMBA_EXE="$HOME/01__git-repos/Coding-Practice/.pixi/envs/default/bin/micromamba"
-        if [[ -x "$MAMBA_EXE" ]]; then
-          eval "$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2>/dev/null)"
-        fi
 
         # --- auto `ls` after cd -------------------------------------------------
         __last_dir="$PWD"
         __auto_ls_on_cd() {
           if [[ "$PWD" != "$__last_dir" ]]; then
             __last_dir="$PWD"
-            echo -e "\n📂 $(pwd)"
+            echo -e "\n $(pwd)"
             ls --color=auto -lah
           fi
         }
