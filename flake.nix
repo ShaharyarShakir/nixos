@@ -8,6 +8,11 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lazyvim = {
+      url = "github:pfassina/lazyvim-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -16,10 +21,12 @@
       nixpkgs,
       home-manager,
       ...
-    }:
+    }@inputs:
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+
+        specialArgs = { inherit inputs; };
 
         modules = [
           ./configuration.nix
@@ -29,6 +36,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
 
             home-manager.users.shaharyar = import ./home/home.nix;
           }
