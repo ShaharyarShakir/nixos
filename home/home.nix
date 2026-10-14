@@ -4,6 +4,7 @@
   imports = [
     ./shell/zsh.nix
     ./editor/emacs.nix
+    ./editor/nvim.nix
   ];
 
   home.username = "shaharyar";
