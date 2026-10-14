@@ -23,6 +23,7 @@
     neovim
     cliphist
     wl-clipboard
+    wofi
   ];
 
 }
