@@ -21,6 +21,8 @@
     vlc
     devenv
     neovim
+    cliphist
+    wl-clipboard
   ];
 
 }

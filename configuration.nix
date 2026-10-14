@@ -8,6 +8,6 @@
     ./programs.nix
     ./containers.nix
     ./development.nix
-    ./virtualization.nix 
- ];
+    ./virtualization.nix
+  ];
 }

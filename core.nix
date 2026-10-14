@@ -12,7 +12,6 @@
     options = "--delete-older-than 7d";
   };
 
-
   # Host
   networking.hostName = "nixos";
 
@@ -58,41 +57,39 @@
       "networkmanager"
       "wheel"
       "incus-admin"
-     "docker"
+      "docker"
     ];
   };
-    users.users.shaharyar.shell = pkgs.zsh;
-   services.udisks2.enable = true;
-   programs.zsh.enable = true;
-   
-   # nix experiment
-nix.settings = {
-  experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  users.users.shaharyar.shell = pkgs.zsh;
+  services.udisks2.enable = true;
+  programs.zsh.enable = true;
 
-  trusted-users = [
-    "root"
-    "shaharyar"
-  ];
-};
+  # nix experiment
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
 
- hardware.bluetooth.enable = true;
- hardware.bluetooth.powerOnBoot = true;
- services.blueman.enable = true;  
- services.pipewire = {
-  enable = true;
-  pulse.enable = true;
-  wireplumber.enable = true;
+    trusted-users = [
+      "root"
+      "shaharyar"
+    ];
   };
-   # Allow unfree packages
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
+  };
+  # Allow unfree packages
 
   services.upower.enable = true;
   nixpkgs.config.allowUnfree = true;
   networking.firewall.enable = false;
-  
-
 
   # NixOS version this configuration was originally created against.
   system.stateVersion = "26.05";

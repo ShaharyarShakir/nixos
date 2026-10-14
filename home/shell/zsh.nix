@@ -1,9 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   home = config.home.homeDirectory;
 
-  
   logo = pkgs.writeText "devcraft-logo.txt" ''
     ██████╗ ███████╗██╗   ██╗ ██████╗██████╗  █████╗ ███████╗████████╗
     ██╔══██╗██╔════╝██║   ██║██╔════╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
@@ -36,7 +40,10 @@ in
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
-    options = [ "--cmd" "cd" ]; # replaces eval "$(zoxide init --cmd cd zsh)"
+    options = [
+      "--cmd"
+      "cd"
+    ]; # replaces eval "$(zoxide init --cmd cd zsh)"
   };
 
   programs.starship = {
@@ -66,7 +73,6 @@ in
 
     BUILDKIT_HOST = "unix:///run/user/1000/buildkit/buildkitd.sock";
 
-
     PURO_ROOT = "${home}/.puro";
 
     ZEPHYR_TOOLCHAIN_HOME = "${home}/Downloads/zephyr-sdk-0.17.0";
@@ -74,7 +80,7 @@ in
   };
 
   home.sessionPath = [
-     # Puro (Flutter)
+    # Puro (Flutter)
     "${home}/.puro/bin"
     "${home}/.puro/shared/pub_cache/bin"
     "${home}/.puro/envs/default/flutter/bin"
