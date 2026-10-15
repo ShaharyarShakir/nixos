@@ -24,6 +24,7 @@
     cliphist
     wl-clipboard
     wofi
+    devbox
   ];
 
 }
