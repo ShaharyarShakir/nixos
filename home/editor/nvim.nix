@@ -4,24 +4,36 @@
 
   programs.lazyvim = {
     enable = true;
-
-    # Your layer: config/ and plugins/ get copied over the defaults
     configFiles = ./lazyvim;
-    treesitterParsers = true;
-    # Replaces lazyvim.json: enable the same extras you had before
+
+    treesitterParsers = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+      lua
+      nix
+      bash
+      vim
+      vimdoc
+      markdown
+      markdown_inline
+      query
+      regex
+      json
+      yaml
+      toml
+      python
+      javascript
+      typescript
+      tsx
+      html
+      css
+    ];
+
     extras = {
       lang.nix.enable = true;
-      # lang.python = {
-      #   enable = true;
-      #   installDependencies = true;
-      #   installRuntimeDependencies = true;
-      # };
     };
 
-    # Tools your own plugin files need
     extraPackages = with pkgs; [
-      yazi          # yazi.lua
-      wl-clipboard  # use xclip on X11
+      yazi
+      wl-clipboard
     ];
   };
 }
