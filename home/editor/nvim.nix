@@ -6,26 +6,7 @@
     enable = true;
     configFiles = ./lazyvim;
 
-    treesitterParsers = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-      lua
-      nix
-      bash
-      vim
-      vimdoc
-      markdown
-      markdown_inline
-      query
-      regex
-      json
-      yaml
-      toml
-      python
-      javascript
-      typescript
-      tsx
-      html
-      css
-    ];
+    treesitterParsers = pkgs.vimPlugins.nvim-treesitter.allGrammars;
 
     extras = {
       lang.nix.enable = true;
