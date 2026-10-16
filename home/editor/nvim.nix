@@ -7,7 +7,7 @@
 
     # Your layer: config/ and plugins/ get copied over the defaults
     configFiles = ./lazyvim;
-
+    treesitterParsers = true;
     # Replaces lazyvim.json: enable the same extras you had before
     extras = {
       lang.nix.enable = true;
