@@ -9,5 +9,6 @@
     ./containers.nix
     ./development.nix
     ./virtualization.nix
+    ./nix-ld.nix
   ];
 }
