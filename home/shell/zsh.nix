@@ -235,8 +235,6 @@ in
         [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 
-        # ssh-agent socket (needs XDG_RUNTIME_DIR, so set at shell start)
-        export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
         # secrets: keep out of the Nix store, read from a private file instead
         [[ -r "$HOME/.secrets/omniroute_api_key" ]] && \
