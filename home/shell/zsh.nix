@@ -235,7 +235,7 @@ in
         [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 
-
+        export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
         # secrets: keep out of the Nix store, read from a private file instead
         [[ -r "$HOME/.secrets/omniroute_api_key" ]] && \
           export OMNIROUTE_API_KEY="$(<"$HOME/.secrets/omniroute_api_key")"
