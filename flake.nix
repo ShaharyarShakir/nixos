@@ -40,7 +40,16 @@
           qemu = pkgs.qemu_kvm;
           OVMF = pkgs.OVMF.fd;
         };
+packages.x86_64-linux.nvidia-sync =
+  let
+    pkgs = import nixpkgs {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
+  in
+  pkgs.callPackage ./packages/nvidia-sync.nix { };
 
+nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
       nixosModules.cubic = import ./modules/cubic.nix;
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
