@@ -1,3 +1,4 @@
+
 {
   description = "Shaharyar's NixOS configuration";
 
@@ -13,6 +14,8 @@
       url = "github:pfassina/lazyvim-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    cubic-src.url = "github:cubic-vm/cubic";
   };
 
   outputs =
@@ -20,9 +23,24 @@
       self,
       nixpkgs,
       home-manager,
+      cubic-src,
       ...
     }@inputs:
     {
+      packages.x86_64-linux.cubic =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+        in
+        pkgs.callPackage ./packages/cubic.nix {
+          src = cubic-src;
+          qemu = pkgs.qemu_kvm;
+          OVMF = pkgs.OVMF.fd;
+        };
+
+      nixosModules.cubic = import ./modules/cubic.nix;
+
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
@@ -30,6 +48,7 @@
 
         modules = [
           ./configuration.nix
+          ./modules/cubic.nix
 
           home-manager.nixosModules.home-manager
 
@@ -44,3 +63,4 @@
       };
     };
 }
+
