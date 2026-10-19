@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "cubic-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792363073,
+        "narHash": "sha256-dz2ZaBMYyQoUOemz7Tt/4hFQkNgzhufHG8zct2dgYxw=",
+        "owner": "cubic-vm",
+        "repo": "cubic",
+        "rev": "fde258a37aa793c34ae7224911c94e1ad663374b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cubic-vm",
+        "repo": "cubic",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -78,6 +94,7 @@
     },
     "root": {
       "inputs": {
+        "cubic-src": "cubic-src",
         "home-manager": "home-manager",
         "lazyvim": "lazyvim",
         "nixpkgs": "nixpkgs"

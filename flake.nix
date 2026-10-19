@@ -15,8 +15,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    cubic-src.url = "github:cubic-vm/cubic";
-  };
+  cubic-src = {
+  url = "github:cubic-vm/cubic";
+  flake = false;
+};  };
 
   outputs =
     {
