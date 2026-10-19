@@ -5,7 +5,6 @@
     ./shell/zsh.nix
     ./editor/emacs.nix
     ./editor/nvim.nix
-../modules/cubic.nix
   ];
 
   home.username = "shaharyar";
