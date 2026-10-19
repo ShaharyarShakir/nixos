@@ -61,6 +61,7 @@ nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
           ./configuration.nix
           ./modules/cubic.nix
 
+    ./modules/nvidia-sync.nix
           home-manager.nixosModules.home-manager
 
           {
