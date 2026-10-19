@@ -25,6 +25,8 @@
     wl-clipboard
     wofi
     devbox
+    qemu
+    OVMF
   ];
 
 }
