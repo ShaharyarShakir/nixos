@@ -3,7 +3,7 @@
   buildGoModule,
   pkg-config,
   btrfs-progs,
-  devmapper,
+  lvm2,
   src,
 }:
 
@@ -17,7 +17,7 @@ buildGoModule {
   vendorHash = lib.fakeVendorHash; 
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ btrfs-progs devmapper ];
+  buildInputs = [ btrfs-progs lvm2 ];
 
   meta = {
     description = "A lightweight microVM manager for Firecracker";
