@@ -10,7 +10,7 @@
     };
 
     flintlock-src = {
-      url = "github:liquid-metal/flintlock";
+      url = "github:liquidmetal-dev/flintlock";
       flake = false;
     };
 

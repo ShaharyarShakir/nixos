@@ -34,6 +34,22 @@
         "type": "github"
       }
     },
+    "flintlock-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792402887,
+        "narHash": "sha256-3VHaaYKp3X+r00364Ier2Xakr2bWgmpFdmQpWfZFYhM=",
+        "owner": "liquidmetal-dev",
+        "repo": "flintlock",
+        "rev": "d84063e5e219595872133a44e2c8f641a1dceea0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "liquidmetal-dev",
+        "repo": "flintlock",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -95,6 +111,7 @@
     "root": {
       "inputs": {
         "cubic-src": "cubic-src",
+        "flintlock-src": "flintlock-src",
         "home-manager": "home-manager",
         "lazyvim": "lazyvim",
         "nixpkgs": "nixpkgs"
