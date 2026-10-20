@@ -14,8 +14,7 @@ buildGoModule {
   inherit src;
 
   # Nix requires a vendor hash for Go modules to maintain reproducibility
-  vendorHash = lib.fakeVendorHash; 
-
+vendorHash = "sha256-waXQlWP9aHmbk0Y0iPHf8EH4CjlWFfSRHt4UfYTDonY=";
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ btrfs-progs lvm2 ];
 
