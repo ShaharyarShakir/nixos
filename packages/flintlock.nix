@@ -13,16 +13,23 @@ buildGoModule {
 
   inherit src;
 
-  # Nix requires a vendor hash for Go modules to maintain reproducibility
-vendorHash = "sha256-waXQlWP9aHmbk0Y0iPHf8EH4CjlWFfSRHt4UfYTDonY=";
+  # Build only the root Go module's executables.
+  subPackages = [
+    "cmd/flintlockd"
+    "cmd/flintlock-metrics"
+    "cmd/flintlock-provision"
+  ];
+
+  vendorHash = "sha256-waXQlWP9aHmbk0Y0iPHf8EH4CjlWFfSRHt4UfYTDonY=";
+
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ btrfs-progs lvm2 ];
 
   meta = {
-    description = "A lightweight microVM manager for Firecracker";
-    homepage = "https://github.com";
-    license = lib.licenses.asl20;
-    mainProgram = "fcli";
+    description = "A service for managing microVM lifecycles";
+    homepage = "https://github.com/liquidmetal-dev/flintlock";
+    license = lib.licenses.mpl20;
+    mainProgram = "flintlockd";
     platforms = [ "x86_64-linux" ];
   };
 }
