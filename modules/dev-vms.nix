@@ -5,7 +5,7 @@
   # 1. Enable background services required by the virtual machine managers
   virtualisation.podman = {
     enable = true;
-    dockerCompat = true;
+    dockerCompat = false;
     defaultNetwork.settings.dns_enabled = true;
   };
 
