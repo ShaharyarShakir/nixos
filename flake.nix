@@ -9,11 +9,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flintlock-src = {
-      url = "github:liquidmetal-dev/flintlock";
-      flake = false;
-    };
-
+voom = {
+  url = "github:mjrusso/voom";
+};
     lazyvim = {
       url = "github:pfassina/lazyvim-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +29,6 @@
       nixpkgs,
       home-manager,
       cubic-src,
-      flintlock-src, # <-- Destructured for packaging engine visibility
       ...
     }@inputs:
     {
@@ -50,15 +47,6 @@
           OVMF = pkgs.OVMF.fd;
         };
 
-      packages.x86_64-linux.flintlock =
-        let
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-          };
-        in
-        pkgs.callPackage ./packages/flintlock.nix {
-          src = flintlock-src;
-        };
 
       packages.x86_64-linux.nvidia-sync =
         let
@@ -74,7 +62,8 @@
       # =========================================================================
       nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
       nixosModules.cubic = import ./modules/cubic.nix;
-      nixosModules.dev-vms = import ./modules/dev-vms.nix; # <-- Modular VM target route
+      nixosModules.dev-vms = import ./modules/lima.nix; 
+      
 
       # =========================================================================
       # SYSTEM CONFIGURATION
@@ -87,7 +76,7 @@
         modules = [
           ./configuration.nix
           ./modules/cubic.nix
-          ./modules/dev-vms.nix # <-- Activated microVM management stack
+          ./modules/lima.nix
           ./modules/nvidia-sync.nix
           home-manager.nixosModules.home-manager
 
