@@ -1,4 +1,3 @@
-
 {
   description = "Shaharyar's NixOS configuration";
 
@@ -10,15 +9,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flintlock-src = {
+      url = "github:liquid-metal/flintlock";
+      flake = false;
+    };
+
     lazyvim = {
       url = "github:pfassina/lazyvim-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-  cubic-src = {
-  url = "github:cubic-vm/cubic";
-  flake = false;
-};  };
+    cubic-src = {
+      url = "github:cubic-vm/cubic";
+      flake = false;
+    };  
+  };
 
   outputs =
     {
@@ -26,9 +31,13 @@
       nixpkgs,
       home-manager,
       cubic-src,
+      flintlock-src, # <-- Destructured for packaging engine visibility
       ...
     }@inputs:
     {
+      # =========================================================================
+      # PACKAGES
+      # =========================================================================
       packages.x86_64-linux.cubic =
         let
           pkgs = import nixpkgs {
@@ -40,18 +49,36 @@
           qemu = pkgs.qemu_kvm;
           OVMF = pkgs.OVMF.fd;
         };
-packages.x86_64-linux.nvidia-sync =
-  let
-    pkgs = import nixpkgs {
-      system = "x86_64-linux";
-      config.allowUnfree = true;
-    };
-  in
-  pkgs.callPackage ./packages/nvidia-sync.nix { };
 
-nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
+      packages.x86_64-linux.flintlock =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+        in
+        pkgs.callPackage ./packages/flintlock.nix {
+          src = flintlock-src;
+        };
+
+      packages.x86_64-linux.nvidia-sync =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+        in
+        pkgs.callPackage ./packages/nvidia-sync.nix { };
+
+      # =========================================================================
+      # MODULE REFS
+      # =========================================================================
+      nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
       nixosModules.cubic = import ./modules/cubic.nix;
+      nixosModules.dev-vms = import ./modules/dev-vms.nix; # <-- Modular VM target route
 
+      # =========================================================================
+      # SYSTEM CONFIGURATION
+      # =========================================================================
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
@@ -60,8 +87,8 @@ nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
         modules = [
           ./configuration.nix
           ./modules/cubic.nix
-
-    ./modules/nvidia-sync.nix
+          ./modules/dev-vms.nix # <-- Activated microVM management stack
+          ./modules/nvidia-sync.nix
           home-manager.nixosModules.home-manager
 
           {
