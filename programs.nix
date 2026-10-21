@@ -28,6 +28,7 @@
     qemu
     OVMF
     appimage-run
+    gtk3
   ];
 
 }
