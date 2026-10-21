@@ -27,6 +27,7 @@
     devbox
     qemu
     OVMF
+    appimage-run
   ];
 
 }
