@@ -93,6 +93,8 @@ services.openssh.enable = true;
     wireplumber.enable = true;
   };
 
+  # flatpack
+  services.flatpack.enable = true; 
 
   # Allow unfree packages
 

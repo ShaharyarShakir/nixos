@@ -13,6 +13,8 @@
     pkgs.lima
     inputs.voom.packages.${pkgs.system}.default
     pkgs.sshfs
+    
+  pkgs.virtiofsd
   ];
 
   # Allow the user to manage development environments
