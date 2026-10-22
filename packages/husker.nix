@@ -20,15 +20,14 @@ stdenvNoCC.mkDerivation {
 
   src = archive;
 
-  dontUnpack = false;
-  nativeBuildInputs = [ autoPatchelfHook ];
-
-  buildInputs = [ stdenv.cc.cc.lib ];
+  dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 ./husker "$out/bin/husker"
+    install -d "$out/bin"
+    tar -xzf "$src" -C "$out/bin" ./husker
+    chmod 755 "$out/bin/husker"
 
     runHook postInstall
   '';

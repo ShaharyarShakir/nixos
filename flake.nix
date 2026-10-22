@@ -68,7 +68,7 @@ voom = {
       nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
       nixosModules.cubic = import ./modules/cubic.nix;
       nixosModules.dev-vms = import ./modules/lima.nix; 
-      
+      nixosModules.husker  = import ./modules/husker.nix;
 
       # =========================================================================
       # SYSTEM CONFIGURATION
@@ -83,6 +83,7 @@ voom = {
           ./modules/cubic.nix
           ./modules/lima.nix
           ./modules/nvidia-sync.nix
+          ./modules/husker.nix
           home-manager.nixosModules.home-manager
 
           {
