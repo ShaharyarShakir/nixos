@@ -10,6 +10,5 @@
     ./development.nix
     ./virtualization.nix
     ./nix-ld.nix
-    ./modules/husker.nix
   ];
 }

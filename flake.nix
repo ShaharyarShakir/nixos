@@ -46,8 +46,13 @@ voom = {
           qemu = pkgs.qemu_kvm;
           OVMF = pkgs.OVMF.fd;
         };
-
-
+      packages.x86_64-linux.husker =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+        in
+        pkgs.callPackage ./packages/husker.nix { };
       packages.x86_64-linux.nvidia-sync =
         let
           pkgs = import nixpkgs {
