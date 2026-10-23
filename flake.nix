@@ -9,9 +9,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-     voom = {
-      url = "github:mjrusso/voom";
-     };
+voom = {
+  url = "github:mjrusso/voom";
+};
     lazyvim = {
       url = "github:pfassina/lazyvim-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,7 +46,14 @@
           qemu = pkgs.qemu_kvm;
           OVMF = pkgs.OVMF.fd;
         };
-              in
+     
+      packages.x86_64-linux.nvidia-sync =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+        in
         pkgs.callPackage ./packages/nvidia-sync.nix { };
 
       # =========================================================================

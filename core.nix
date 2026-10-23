@@ -101,6 +101,7 @@ programs.nix-ld.enable = true;
   # flatpak
   services.flatpak.enable = true; 
 
+services.snap.enable = true;
   # Allow unfree packages
 
   services.upower.enable = true;
