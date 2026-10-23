@@ -9,9 +9,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-voom = {
-  url = "github:mjrusso/voom";
-};
+     voom = {
+      url = "github:mjrusso/voom";
+     };
     lazyvim = {
       url = "github:pfassina/lazyvim-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,20 +46,7 @@ voom = {
           qemu = pkgs.qemu_kvm;
           OVMF = pkgs.OVMF.fd;
         };
-      packages.x86_64-linux.husker =
-        let
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-          };
-        in
-        pkgs.callPackage ./packages/husker.nix { };
-      packages.x86_64-linux.nvidia-sync =
-        let
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-        in
+              in
         pkgs.callPackage ./packages/nvidia-sync.nix { };
 
       # =========================================================================
@@ -68,7 +55,6 @@ voom = {
       nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
       nixosModules.cubic = import ./modules/cubic.nix;
       nixosModules.dev-vms = import ./modules/lima.nix; 
-      nixosModules.husker  = import ./modules/husker.nix;
 
       # =========================================================================
       # SYSTEM CONFIGURATION
@@ -83,7 +69,6 @@ voom = {
           ./modules/cubic.nix
           ./modules/lima.nix
           ./modules/nvidia-sync.nix
-          ./modules/husker.nix
           home-manager.nixosModules.home-manager
 
           {
