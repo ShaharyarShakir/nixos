@@ -60,6 +60,8 @@
       "docker"
     ];
   };
+
+  # zsh shell
   users.users.shaharyar.shell = pkgs.zsh;
   services.udisks2.enable = true;
   programs.zsh.enable = true;
@@ -81,6 +83,9 @@
   # ssh agent config
 services.openssh.enable = true;
   programs.ssh.startAgent = true;
+
+ # nix ld
+programs.nix-ld.enable = true;
 
 
    # bluetooth and pipewire
