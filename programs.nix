@@ -30,6 +30,7 @@
     appimage-run
     gtk3
    quickemu
+   worktrunk
   ];
 
 }

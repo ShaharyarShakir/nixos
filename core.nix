@@ -100,10 +100,7 @@ programs.nix-ld.enable = true;
 
   # flatpak
   services.flatpak.enable = true; 
-{
-  imports = [ (import <nix-snapd>).nixosModules.default ];
-  
-  services.snap.enable = true;
+services.snap.enable = true;
   # Allow unfree packages
 
   services.upower.enable = true;
