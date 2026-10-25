@@ -31,6 +31,8 @@
     gtk3
    quickemu
    worktrunk
+   tmux
+   podman-compose
   ];
 
 }
