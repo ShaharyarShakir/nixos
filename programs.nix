@@ -33,6 +33,7 @@
    worktrunk
    tmux
    podman-compose
+image-roll
   ];
 
 }
