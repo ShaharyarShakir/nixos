@@ -11,7 +11,9 @@
 
   programs.virt-manager.enable = true;
 
-  virtualisation.qemu.firmware.enable = true;
+  environment.etc."qemu/firmware/60-edk2-x86_64.json".source =
+  "${pkgs.qemu}/share/qemu/firmware/60-edk2-x86_64.json";  
+
   environment.systemPackages = with pkgs; [
     virt-viewer
   ];
