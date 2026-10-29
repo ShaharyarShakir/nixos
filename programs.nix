@@ -29,11 +29,12 @@
     OVMF
     appimage-run
     gtk3
-   quickemu
-   worktrunk
-   tmux
-   podman-compose
-image-roll
+    quickemu
+    worktrunk
+    tmux
+    podman-compose
+    image-roll
+    virtiofsd
   ];
 
 }

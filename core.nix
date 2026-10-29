@@ -83,7 +83,7 @@
   # ssh agent config
 services.openssh.enable = true;
   programs.ssh.startAgent = true;
-
+programs.ssh.systemd-ssh-proxy.enable = true;
  # nix ld
 programs.nix-ld.enable = true;
 
