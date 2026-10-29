@@ -11,6 +11,7 @@
 
   programs.virt-manager.enable = true;
 
+  virtualisation.qemu.firmware.enable = true;
   environment.systemPackages = with pkgs; [
     virt-viewer
   ];
