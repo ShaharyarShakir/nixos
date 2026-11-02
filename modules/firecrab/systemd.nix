@@ -133,21 +133,29 @@ in
         cfg.package
         cfg.firecracker.package
         pkgs.bash
+        pkgs.binutils
+        pkgs.bzip2
         pkgs.coreutils
-        pkgs.findutils
-        pkgs.gnutar
-        pkgs.gzip
-        pkgs.zstd
         pkgs.curl
-        pkgs.git
-        pkgs.openssh
-        pkgs.iproute2
-        pkgs.nftables
-        pkgs.iptables
-        pkgs.dnsmasq
-        pkgs.conntrack-tools
         pkgs.e2fsprogs
         pkgs.fakeroot
+        pkgs.file
+        pkgs.findutils
+        pkgs.gnugrep
+        pkgs.gnused
+        pkgs.gnutar
+        pkgs.gzip
+        pkgs.git
+        pkgs.iproute2
+        pkgs.iptables
+        pkgs.lz4
+        pkgs.lzop
+        pkgs.nftables
+        pkgs.openssh
+        pkgs.dnsmasq
+        pkgs.conntrack-tools
+        pkgs.xz
+        pkgs.zstd
       ];
 
       environment = {
