@@ -45,24 +45,6 @@ voom = {
           qemu = pkgs.qemu_kvm;
           OVMF = pkgs.OVMF.fd;
         };
-        packages.x86_64-linux.firecracker =
-        let
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-          };
-        in
-        pkgs.callPackage ./packages/firecracker/default.nix { };
-                packages.x86_64-linux.firecrab =
-        let
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfreePredicate = pkg:
-              builtins.elem (nixpkgs.lib.getName pkg) [
-                "firecrab"
-              ];
-          };
-        in
-        pkgs.callPackage ./packages/firecrab/default.nix { };
       packages.x86_64-linux.nvidia-sync =
         let
           pkgs = import nixpkgs {
@@ -78,7 +60,6 @@ voom = {
       nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
       nixosModules.cubic = import ./modules/cubic.nix;
       nixosModules.dev-vms = import ./modules/lima.nix;
-      nixosModules.firecrab = import ./modules/firecrab;
 
       # =========================================================================
       # SYSTEM CONFIGURATION
@@ -93,17 +74,6 @@ voom = {
           ./modules/cubic.nix
           ./modules/lima.nix
           ./modules/nvidia-sync.nix
-          ./modules/firecrab
-
-          {
-            services.firecrab.enable = true;
-
-            services.firecrab.package =
-              self.packages.x86_64-linux.firecrab;
-
-            services.firecrab.firecracker.package =
-              self.packages.x86_64-linux.firecracker;
-          }
 
           home-manager.nixosModules.home-manager
 
