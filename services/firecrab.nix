@@ -2,8 +2,7 @@
 
 let
   firecrabPath =
-    "/run/current-system/sw/bin"
-    + ":/usr/local/bin:"
+    "/run/current-system/sw/bin:/usr/local/bin:"
     + lib.makeBinPath [
       pkgs.iproute2
       pkgs.nftables
@@ -15,7 +14,11 @@ let
     ];
 in
 {
-  # Preserve the existing FireCrab system account.
+  # ------------------------------------------------------------
+  # FireCrab system account
+  # Preserve the IDs from the existing installation.
+  # ------------------------------------------------------------
+
   users.groups.firecrab = {
     gid = 986;
   };
@@ -29,7 +32,10 @@ in
     extraGroups = [ "kvm" ];
   };
 
-  # Privileged networking and host integration helper.
+  # ------------------------------------------------------------
+  # Privileged FireCrab host helper
+  # ------------------------------------------------------------
+
   systemd.services.firecrab-helper = {
     description = "FireCrab privileged host helper";
 
@@ -44,12 +50,7 @@ in
       PREFIX = "/usr/local";
       FIRECRAB_LIBDIR = "/usr/local/lib/firecrab";
       CONFDIR = "/etc/firecrab";
-
-      # FireCrab uses this directory for runtime-generated units.
-      # Do not change this to /etc/systemd/system on NixOS.
       UNITDIR = "/run/systemd/system";
-
-      PATH = firecrabPath;
     };
 
     serviceConfig = {
@@ -60,6 +61,10 @@ in
 
       RuntimeDirectory = "firecrab";
       RuntimeDirectoryMode = "0751";
+
+      Environment = [
+        "PATH=${lib.mkForce firecrabPath}"
+      ];
 
       ExecStart = "/usr/local/lib/firecrab/firecrab-helper";
 
@@ -92,7 +97,10 @@ in
     };
   };
 
-  # FireCrab API and dashboard.
+  # ------------------------------------------------------------
+  # FireCrab API and dashboard
+  # ------------------------------------------------------------
+
   systemd.services.firecrab-api = {
     description = "FireCrab API and dashboard";
 
@@ -103,7 +111,10 @@ in
       "network-online.target"
     ];
 
-    wants = [ "firecrab-helper.service" ];
+    wants = [
+      "firecrab-helper.service"
+      "network-online.target"
+    ];
 
     environment = {
       FIRECRAB_IMAGE_ROOT = "/var/lib/firecrab/images";
@@ -113,8 +124,6 @@ in
       PREFIX = "/usr/local";
       FIRECRAB_LIBDIR = "/usr/local/lib/firecrab";
       DATADIR = "/var/lib/firecrab";
-
-      PATH = firecrabPath;
     };
 
     serviceConfig = {
@@ -126,6 +135,10 @@ in
       WorkingDirectory = "/var/lib/firecrab";
 
       EnvironmentFile = "-/etc/firecrab/api.env";
+
+      Environment = [
+        "PATH=${lib.mkForce firecrabPath}"
+      ];
 
       ExecStart = "/usr/local/lib/firecrab/firecrab-api";
 
@@ -147,3 +160,4 @@ in
     };
   };
 }
+
