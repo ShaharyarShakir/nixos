@@ -1,0 +1,200 @@
+{ config, lib, pkgs, ... }:
+
+let
+  cfg = config.services.firecrab;
+
+  firecrabLib = "${cfg.package}/lib/firecrab";
+  firecrabShare = "${cfg.package}/share/firecrab";
+
+  runtimePath = lib.makeBinPath [
+    cfg.package
+    cfg.firecracker.package
+
+    pkgs.bash
+    pkgs.coreutils
+    pkgs.findutils
+
+    # Networking
+    pkgs.iproute2
+    pkgs.nftables
+    pkgs.iptables
+    pkgs.dnsmasq
+    pkgs.conntrack-tools
+
+    # Other FireCrab runtime dependencies
+    pkgs.gnutar
+    pkgs.gzip
+    pkgs.zstd
+    pkgs.curl
+    pkgs.git
+    pkgs.openssh
+    pkgs.e2fsprogs
+    pkgs.fakeroot
+  ];
+in
+{
+  config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.package != null;
+        message = "services.firecrab.package must be configured.";
+      }
+      {
+        assertion = cfg.firecracker.package != null;
+        message = "services.firecrab.firecracker.package must be configured.";
+      }
+    ];
+
+    # FireCrab MicroNetworks require host-level IPv4 forwarding.
+    boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
+    # ----------------------------------------------------------
+    # Privileged host networking helper
+    # ----------------------------------------------------------
+
+    systemd.services.firecrab-net-helper = {
+      description = "FireCrab privileged host networking helper";
+
+      wantedBy = [ "multi-user.target" ];
+
+      after = [ "network-pre.target" ];
+      wants = [ "network-pre.target" ];
+      before = [ "firecrab-api.service" ];
+
+      path = [
+        cfg.package
+        cfg.firecracker.package
+        pkgs.coreutils
+        pkgs.iproute2
+        pkgs.nftables
+        pkgs.dnsmasq
+        pkgs.conntrack-tools
+        pkgs.gnutar
+        pkgs.zstd
+        pkgs.curl
+      ];
+
+      environment = {
+        PATH = runtimePath;
+
+        PREFIX = cfg.package;
+        FIRECRAB_LIBDIR = firecrabLib;
+        CONFDIR = cfg.configDir;
+        UNITDIR = "/run/systemd/system";
+      };
+
+      serviceConfig = {
+        Type = "simple";
+
+        User = "root";
+        Group = cfg.group;
+
+        RuntimeDirectory = "firecrab";
+        RuntimeDirectoryMode = "0751";
+
+        ExecStart = pkgs.writeShellScript "firecrab-net-helper-wrapper" ''
+          export FIRECRAB_NET_HELPER_ALLOWED_UID="$(id -u ${cfg.user})"
+          exec ${firecrabLib}/firecrab-net-helper
+        '';
+
+        Restart = "on-failure";
+        RestartSec = 2;
+
+        CapabilityBoundingSet = [
+          "CAP_NET_ADMIN"
+          "CAP_NET_RAW"
+          "CAP_NET_BIND_SERVICE"
+          "CAP_SETUID"
+          "CAP_SETGID"
+          "CAP_KILL"
+          "CAP_CHOWN"
+        ];
+
+        NoNewPrivileges = true;
+        ProtectHome = true;
+        ProtectSystem = "full";
+
+        ReadWritePaths = [
+          "/run/firecrab"
+          cfg.dataDir
+          cfg.configDir
+          "/run/systemd/system"
+        ];
+      };
+    };
+
+    # ----------------------------------------------------------
+    # API and dashboard
+    # ----------------------------------------------------------
+
+    systemd.services.firecrab-api = {
+      description = "FireCrab API and dashboard";
+
+      wantedBy = [ "multi-user.target" ];
+
+      after = [
+        "firecrab-net-helper.service"
+        "network-online.target"
+      ];
+
+      wants = [
+        "firecrab-net-helper.service"
+        "network-online.target"
+      ];
+
+      path = [
+        cfg.package
+        cfg.firecracker.package
+        pkgs.coreutils
+        pkgs.findutils
+        pkgs.gnutar
+        pkgs.gzip
+        pkgs.zstd
+        pkgs.curl
+        pkgs.git
+        pkgs.openssh
+        pkgs.iproute2
+        pkgs.nftables
+        pkgs.e2fsprogs
+      ];
+
+      environment = {
+        PATH = runtimePath;
+
+        FIRECRAB_IMAGE_ROOT = "${cfg.dataDir}/images";
+        FIRECRAB_STATIC_ROOT = "${firecrabShare}/dashboard";
+        FIRECRAB_CI_DEPLOY = "1";
+
+        PREFIX = cfg.package;
+        FIRECRAB_LIBDIR = firecrabLib;
+        DATADIR = cfg.dataDir;
+      };
+
+      serviceConfig = {
+        Type = "simple";
+
+        User = cfg.user;
+        Group = cfg.group;
+
+        WorkingDirectory = cfg.dataDir;
+
+        EnvironmentFile = "-${cfg.configDir}/api.env";
+
+        ExecStart = "${firecrabLib}/firecrab-api";
+
+        Restart = "on-failure";
+        RestartSec = 2;
+
+        NoNewPrivileges = true;
+        PrivateTmp = true;
+        ProtectHome = true;
+        ProtectSystem = "full";
+
+        ReadWritePaths = [
+          cfg.dataDir
+          "-/run/firecrab"
+        ];
+      };
+    };
+  };
+}
