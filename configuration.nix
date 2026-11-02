@@ -10,6 +10,7 @@
     ./development.nix
     ./virtualization.nix
     ./nix-ld.nix
-    ./services/firecrab.nix
+    # Legacy FireCrab service file left intact but not imported here.
+    # ./services/firecrab.nix
   ];
 }
