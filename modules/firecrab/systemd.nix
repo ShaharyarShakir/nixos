@@ -5,32 +5,6 @@ let
 
   firecrabLib = "${cfg.package}/lib/firecrab";
   firecrabShare = "${cfg.package}/share/firecrab";
-
-  runtimePath = lib.makeBinPath [
-    cfg.package
-    cfg.firecracker.package
-
-    pkgs.bash
-    pkgs.coreutils
-    pkgs.findutils
-
-    # Networking
-    pkgs.iproute2
-    pkgs.nftables
-    pkgs.iptables
-    pkgs.dnsmasq
-    pkgs.conntrack-tools
-
-    # Other FireCrab runtime dependencies
-    pkgs.gnutar
-    pkgs.gzip
-    pkgs.zstd
-    pkgs.curl
-    pkgs.git
-    pkgs.openssh
-    pkgs.e2fsprogs
-    pkgs.fakeroot
-  ];
 in
 {
   config = lib.mkIf cfg.enable {
@@ -64,19 +38,25 @@ in
       path = [
         cfg.package
         cfg.firecracker.package
+        pkgs.bash
         pkgs.coreutils
-        pkgs.iproute2
-        pkgs.nftables
-        pkgs.dnsmasq
-        pkgs.conntrack-tools
+        pkgs.findutils
         pkgs.gnutar
+        pkgs.gzip
         pkgs.zstd
         pkgs.curl
+        pkgs.git
+        pkgs.openssh
+        pkgs.iproute2
+        pkgs.nftables
+        pkgs.iptables
+        pkgs.dnsmasq
+        pkgs.conntrack-tools
+        pkgs.e2fsprogs
+        pkgs.fakeroot
       ];
 
       environment = {
-        PATH = runtimePath;
-
         PREFIX = cfg.package;
         FIRECRAB_LIBDIR = firecrabLib;
         CONFDIR = cfg.configDir;
@@ -145,6 +125,7 @@ in
       path = [
         cfg.package
         cfg.firecracker.package
+        pkgs.bash
         pkgs.coreutils
         pkgs.findutils
         pkgs.gnutar
@@ -155,12 +136,14 @@ in
         pkgs.openssh
         pkgs.iproute2
         pkgs.nftables
+        pkgs.iptables
+        pkgs.dnsmasq
+        pkgs.conntrack-tools
         pkgs.e2fsprogs
+        pkgs.fakeroot
       ];
 
       environment = {
-        PATH = runtimePath;
-
         FIRECRAB_IMAGE_ROOT = "${cfg.dataDir}/images";
         FIRECRAB_STATIC_ROOT = "${firecrabShare}/dashboard";
         FIRECRAB_CI_DEPLOY = "1";

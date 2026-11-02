@@ -5,9 +5,7 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    users.groups.${cfg.group} = lib.mkIf (cfg.gid != null) {
-      gid = cfg.gid;
-    };
+    users.groups.${cfg.group} = if cfg.gid == null then {} else { gid = cfg.gid; };
 
     users.users.${cfg.user} = {
       isSystemUser = true;
@@ -17,8 +15,6 @@ in
 
       extraGroups = [ "kvm" ];
       description = "FireCrab NixOS service account";
-    } // lib.optionalAttrs (cfg.uid != null) {
-      uid = cfg.uid;
-    };
+    } // (if cfg.uid == null then {} else { uid = cfg.uid; });
   };
 }
