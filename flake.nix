@@ -96,6 +96,8 @@ voom = {
           ./modules/firecrab
 
           {
+            services.firecrab.enable = true;
+
             services.firecrab.package =
               self.packages.x86_64-linux.firecrab;
 
