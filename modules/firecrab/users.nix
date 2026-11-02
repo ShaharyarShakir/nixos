@@ -5,21 +5,20 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    users.groups.${cfg.group} = {
+    users.groups.${cfg.group} = lib.mkIf (cfg.gid != null) {
       gid = cfg.gid;
     };
 
     users.users.${cfg.user} = {
       isSystemUser = true;
-      uid = cfg.uid;
       group = cfg.group;
-
       home = cfg.dataDir;
       createHome = false;
 
       extraGroups = [ "kvm" ];
-
-      description = "FireCrab VM management service";
+      description = "FireCrab NixOS service account";
+    } // lib.optionalAttrs (cfg.uid != null) {
+      uid = cfg.uid;
     };
   };
 }

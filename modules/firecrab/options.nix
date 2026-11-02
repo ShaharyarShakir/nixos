@@ -19,25 +19,25 @@
     user = lib.mkOption {
       type = lib.types.str;
       default = "firecrab-nixos";
-      description = "FireCrab service account.";
+      description = "System user for the FireCrab deployment.";
     };
 
     group = lib.mkOption {
       type = lib.types.str;
       default = "firecrab-nixos";
-      description = "FireCrab service group.";
+      description = "System group for the FireCrab deployment.";
     };
 
     uid = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
       default = null;
-      description = "UID for the FireCrab service account. Leave null to let NixOS allocate it.";
+      description = "Optional UID for the FireCrab system user.";
     };
 
     gid = lib.mkOption {
       type = lib.types.nullOr lib.types.int;
       default = null;
-      description = "GID for the FireCrab service group. Leave null to let NixOS allocate it.";
+      description = "Optional GID for the FireCrab system group.";
     };
 
     dataDir = lib.mkOption {
