@@ -5,6 +5,16 @@ let
 
   firecrabLib = "${cfg.package}/lib/firecrab";
   firecrabShare = "${cfg.package}/share/firecrab";
+
+  helperLauncher = pkgs.writeShellScript "firecrab-net-helper-start" ''
+    set -eu
+
+    helper_uid="$(${pkgs.coreutils}/bin/id -u ${cfg.user})"
+
+    export FIRECRAB_NET_HELPER_ALLOWED_UID="$helper_uid"
+
+    exec ${firecrabLib}/firecrab-helper
+  '';
 in
 {
   config = lib.mkIf cfg.enable {
@@ -72,10 +82,7 @@ in
         RuntimeDirectory = "firecrab";
         RuntimeDirectoryMode = "0751";
 
-        ExecStart = pkgs.writeShellScript "firecrab-net-helper-wrapper" ''
-          export FIRECRAB_NET_HELPER_ALLOWED_UID="$(id -u ${cfg.user})"
-          exec ${firecrabLib}/firecrab-net-helper
-        '';
+        ExecStart = "${helperLauncher}";
 
         Restart = "on-failure";
         RestartSec = 2;
