@@ -10,5 +10,6 @@
     ./development.nix
     ./virtualization.nix
     ./nix-ld.nix
+    ./swap.nix 
   ];
 }

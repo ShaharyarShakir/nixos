@@ -35,6 +35,7 @@
     podman-compose
     image-roll
     virtiofsd
+    distrobox
   ];
 
 }
