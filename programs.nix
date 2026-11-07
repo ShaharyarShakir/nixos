@@ -36,6 +36,7 @@
     image-roll
     virtiofsd
     distrobox
+    wezterm
   ];
 
 }
