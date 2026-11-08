@@ -97,8 +97,8 @@ in
     syntaxHighlighting.enable = true; # zsh-syntax-highlighting
 
     history = {
-      size = 5000;
-      save = 5000;
+      size = 50000;
+      save = 50000;
       path = "${home}/.zsh_history";
 
       share = true;
@@ -208,10 +208,6 @@ in
         bindkey -e
         bindkey '^p' history-search-backward
         bindkey '^n' history-search-forward
-
-        # extra history options
-        HISTDUP=erase
-        setopt append_history
 
         # completion style
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
