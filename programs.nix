@@ -37,6 +37,7 @@
     virtiofsd
     distrobox
     wezterm
+    jetbrains-mono
   ];
 
 }
