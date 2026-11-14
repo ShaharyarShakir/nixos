@@ -8,9 +8,16 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-voom = {
-  url = "github:mjrusso/voom";
-};
+
+    nix-snapd = {
+      url = "github:nix-community/nix-snapd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    voom = {
+      url = "github:mjrusso/voom";
+    };
+
     lazyvim = {
       url = "github:pfassina/lazyvim-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +26,7 @@ voom = {
     cubic-src = {
       url = "github:cubic-vm/cubic";
       flake = false;
-    };  
+    };
   };
 
   outputs =
@@ -27,6 +34,7 @@ voom = {
       self,
       nixpkgs,
       home-manager,
+      nix-snapd,
       cubic-src,
       ...
     }@inputs:
@@ -70,6 +78,7 @@ voom = {
         specialArgs = { inherit inputs; };
 
         modules = [
+          nix-snapd.nixosModules.default
           ./configuration.nix
           ./modules/cubic.nix
           ./modules/lima.nix
