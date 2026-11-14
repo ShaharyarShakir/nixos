@@ -27,6 +27,26 @@
       url = "github:cubic-vm/cubic";
       flake = false;
     };
+
+    multipass-src = {
+      url = "git+https://github.com/canonical/multipass.git?ref=refs/tags/v1.17.1&submodules=1";
+      flake = false;
+    };
+
+    out-ptr-src = {
+      url = "github:soasis/out_ptr/02a577edfcf25e2519e380a95c16743b7e5878a1";
+      flake = false;
+    };
+
+    xz-embedded-src = {
+      url = "github:tukaani-project/xz-embedded/v2024-12-30";
+      flake = false;
+    };
+
+    scope-guard-src = {
+      url = "github:ricab/scope_guard/v1.1.0";
+      flake = false;
+    };
   };
 
   outputs =
@@ -36,6 +56,10 @@
       home-manager,
       nix-snapd,
       cubic-src,
+      multipass-src,
+      out-ptr-src,
+      xz-embedded-src,
+      scope-guard-src,
       ...
     }@inputs:
     {
@@ -53,6 +77,52 @@
           qemu = pkgs.qemu_kvm;
           OVMF = pkgs.OVMF.fd;
         };
+
+      packages.x86_64-linux.out-ptr =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+        in
+        pkgs.callPackage ./packages/out-ptr.nix {
+          src = out-ptr-src;
+          inherit multipass-src;
+        };
+
+      packages.x86_64-linux.xz-embedded =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+        in
+        pkgs.callPackage ./packages/xz-embedded.nix {
+          src = xz-embedded-src;
+          inherit multipass-src;
+        };
+
+      packages.x86_64-linux.scope-guard =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+        in
+        pkgs.callPackage ./packages/scope-guard.nix {
+          src = scope-guard-src;
+        };
+
+      packages.x86_64-linux.multipass =
+        let
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+          };
+        in
+        pkgs.callPackage ./packages/multipass {
+          src = multipass-src;
+          out_ptr = self.packages.x86_64-linux.out-ptr;
+          xz_embedded = self.packages.x86_64-linux.xz-embedded;
+          scope_guard = self.packages.x86_64-linux.scope-guard;
+        };
+
       packages.x86_64-linux.nvidia-sync =
         let
           pkgs = import nixpkgs {
@@ -68,6 +138,7 @@
       nixosModules.nvidia-sync = import ./modules/nvidia-sync.nix;
       nixosModules.cubic = import ./modules/cubic.nix;
       nixosModules.dev-vms = import ./modules/lima.nix;
+      nixosModules.multipass = import ./modules/multipass.nix;
 
       # =========================================================================
       # SYSTEM CONFIGURATION
@@ -82,6 +153,7 @@
           ./configuration.nix
           ./modules/cubic.nix
           ./modules/lima.nix
+          ./modules/multipass.nix
           ./modules/nvidia-sync.nix
 
           home-manager.nixosModules.home-manager

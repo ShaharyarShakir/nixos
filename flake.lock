@@ -126,6 +126,25 @@
         "type": "github"
       }
     },
+    "multipass-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792608250,
+        "narHash": "sha256-GVCLQVqxA1g7Xl2ICqCsP5lY+z9Tg8UwZF34TeeXzjA=",
+        "ref": "refs/tags/v1.17.1",
+        "rev": "77c171cedcaebad8ca78a476ff4aa33e45ee16b3",
+        "revCount": 17480,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/canonical/multipass.git"
+      },
+      "original": {
+        "ref": "refs/tags/v1.17.1",
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/canonical/multipass.git"
+      }
+    },
     "nix-snapd": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -195,14 +214,52 @@
         "type": "github"
       }
     },
+    "out-ptr-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1743986416,
+        "narHash": "sha256-yoV2ja54cIJ2NZWRMqrldTkInG/yAeRG9sI8/ceHang=",
+        "owner": "soasis",
+        "repo": "out_ptr",
+        "rev": "02a577edfcf25e2519e380a95c16743b7e5878a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "soasis",
+        "repo": "out_ptr",
+        "rev": "02a577edfcf25e2519e380a95c16743b7e5878a1",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "cubic-src": "cubic-src",
         "home-manager": "home-manager",
         "lazyvim": "lazyvim",
+        "multipass-src": "multipass-src",
         "nix-snapd": "nix-snapd",
         "nixpkgs": "nixpkgs",
-        "voom": "voom"
+        "out-ptr-src": "out-ptr-src",
+        "scope-guard-src": "scope-guard-src",
+        "voom": "voom",
+        "xz-embedded-src": "xz-embedded-src"
+      }
+    },
+    "scope-guard-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677687552,
+        "narHash": "sha256-7McJrwVcyMcotd0y2thgdQQthXNZhU26YRQvP5q/OLc=",
+        "owner": "ricab",
+        "repo": "scope_guard",
+        "rev": "ee296e156cf01f9b8cf223f3f0b39501a6d4cb82",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ricab",
+        "ref": "v1.1.0",
+        "repo": "scope_guard",
+        "type": "github"
       }
     },
     "systems": {
@@ -251,6 +308,23 @@
       "original": {
         "owner": "mjrusso",
         "repo": "voom",
+        "type": "github"
+      }
+    },
+    "xz-embedded-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1735552667,
+        "narHash": "sha256-0UrEB893EzZrWH2oS5gCe6aIxvhfu7hdPoB5pIZ7Bys=",
+        "owner": "tukaani-project",
+        "repo": "xz-embedded",
+        "rev": "ae63ae3a36ed01724674e8f3d750dc47bf125410",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tukaani-project",
+        "ref": "v2024-12-30",
+        "repo": "xz-embedded",
         "type": "github"
       }
     }
