@@ -81,13 +81,19 @@
 
   
   # ssh agent config
-services.openssh.enable = true;
+  services.openssh.enable = true;
   programs.ssh.startAgent = true;
-programs.ssh.systemd-ssh-proxy.enable = true;
- # nix ld
-programs.nix-ld.enable = true;
 
+   # nix ld
+  programs.nix-ld.enable = true;
 
+  # man pages
+documentation.dev.enable = true;   # section 2/3 pages from the Linux man-pages project
+
+environment.systemPackages = with pkgs; [
+  man-pages          # Linux syscalls and libc (sections 2, 3, 4, 5, 7)
+  man-pages-posix    # optional: POSIX versions of the section 3p/1p/0p pages
+];
    # bluetooth and pipewire
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
