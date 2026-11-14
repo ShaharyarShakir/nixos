@@ -80,6 +80,7 @@ in
   };
 
   home.sessionPath = [
+    "/snap/bin"
     # Puro (Flutter)
     "${home}/.puro/bin"
     "${home}/.puro/shared/pub_cache/bin"
@@ -240,6 +241,7 @@ in
         if command -v wt >/dev/null 2>&1; then
           eval "$(command wt config shell init zsh)"
         fi
+        export PATH="/snap/bin:$PATH"
         export PATH="$HOME/.local/bin:$PATH"
 
         # --- auto `ls` after cd -------------------------------------------------
